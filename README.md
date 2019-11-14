@@ -1,14 +1,5 @@
----
-title: 'Sound Classification Assignment'
-disqus: hackmd
----
-
 Sound Classification
 ===
-
-## Table of Contents
-
-[TOC]
 
 ## Introduction
 
