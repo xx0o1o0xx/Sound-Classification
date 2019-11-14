@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05327e71-2102-4e55-8e9b-e3c88f963c7c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Sound Classification.ipynb" afterPath="$PROJECT_DIR$/Sound Classification.ipynb" />
-      <change beforePath="$PROJECT_DIR$/wavconvert/wavconverter.py" afterPath="$PROJECT_DIR$/wavconvert/wavconverter.py" />
-    </list>
+    <list default="true" id="05327e71-2102-4e55-8e9b-e3c88f963c7c" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

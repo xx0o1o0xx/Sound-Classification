@@ -1,3 +1,8 @@
+---
+title: 'Sound Classification Assignment'
+disqus: hackmd
+---
+
 Sound Classification
 ===
 
@@ -18,49 +23,19 @@ Median filtering was used to pre-process the signal before features were extract
 
 ## Features
 
-```gherkin=
-Feature: Guess the word
-
-  # The first example has two steps
-  Scenario: Maker starts a game
-    When the Maker starts a game
-    Then the Maker waits for a Breaker to join
-
-  # The second example has three steps
-  Scenario: Breaker joins a game
-    Given the Maker has started a game with the word "silky"
-    When the Breaker joins the Maker's game
-    Then the Breaker must guess a word with 5 characters
+```python
+        fv = []
+        fv.append(len(zero_crossings))#number of zero crossings
+        fv.append(np.percentile(y,50))#find value halfway between sorted list
+        fv.append(np.percentile(y, 70))#find value 70% up the sorted list
+        fv.append(np.percentile(y, 80))#find value 80% up the sorted list
 ```
-> I choose a lazy person to do a hard job. Because a lazy person will find an easy way to do it. [name=Bill Gates]
+The domain specific features were take from the original signal and not the FFT output. This feature set was used in both the windowed and non windowed domain specific implemenation. I started collecting features in the time domain, with the intention of collecting more features in the frequency domain, but this feature set is giving me very accurate classification. The frequency domain features I would have added if needed are finding the peaks of the frequency after averaging the vector across time. This would have been very useful since the different classes all worked on different frequencies, and some would also have no peaks. Another feature would have been the change in frequency over a set amount of time. 
 
-
-```gherkin=
-Feature: Shopping Cart
-  As a Shopper
-  I want to put items in my shopping cart
-  Because I want to manage items before I check out
-
-  Scenario: User adds item to cart
-    Given I'm a logged-in User
-    When I go to the Item page
-    And I click "Add item to cart"
-    Then the quantity of items in my cart should go up
-    And my subtotal should increment
-    And the warehouse inventory should decrement
-```
-
-> Read more about Gherkin here: https://docs.cucumber.io/gherkin/reference/
+The number of zero crossing deemed very definitive in classifying the audio signal, this is because the number of zero crossing varied drastically between the different sound origins. Where as, remaining quite similar between samples of the same origin. The zero crossing can tell how many times the signal crossed the y=0, this allows us to roughly seperate a frequency component of the entire signal into one value. The other nth-percentile values also told the model alot about each signal. This value signifies the "loudness" of each signal and how much of it was loud. The higher the value the louder the signal. I chose to use three differents n values because the output will not be linear from 50th percentile and the 80th percentile, two origins may share a 50th percentile number but can be drastically different in the 80th. Mainly because the the values above could be extremely close to the 50th percentile or extremely far and every where in between.
 
 ## Results
-```sequence
-Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!
-Note left of Alice: Alice responds
-Alice->Bob: Where have you been?
-```
 
-> Read more about sequence-diagrams here: http://bramp.github.io/js-sequence-diagrams/
+All the models trained were highly accurate. They always scored above 90% accuracy. Changing the number of folds did effect the accuracy, but that is as expected. This is because there is a possibility to create folds that dont have enough of one sample to train it effectively. The binning was definitely the most accurate and the simplest to implement. Visually being able to see what the model uses to train in binning, allows the models to be trained with confidence. It can almost be assured that the models will train properly with binning. 
 
-
+The cleanliness of the recordings also seemed to make the model training simpler, this allowed less preprocessing. This is because there was no background noise or other stuff going on in the background that would effect the sample, and it wouldnt allow the models to overfit due to those noises. The graphs plotted in the Jupyter Notebook show the binning output visually, there is one plot for each sample type. There is also a spectrograph of each type of sample and the relationships were drawn out from there.
